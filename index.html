@@ -1,0 +1,248 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Fichas de Usuario</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="app-container">
+        <aside id="sidebar">
+            <header class="sidebar-header">
+                <h2>Pacientes</h2>
+                <button id="add-new-user-btn" class="btn btn-primary">+ Nuevo Paciente</button>
+            </header>
+            <div id="user-list">
+                <!-- User list will be populated by JavaScript -->
+            </div>
+        </aside>
+
+        <main id="main-content">
+            <div id="welcome-screen">
+                <img src="/IMG_3834.jpeg" alt="Logo Institución" class="logo-large">
+                <h1>Sistema de Fichas de Diagnóstico</h1>
+                <p>Seleccione un paciente de la lista o cree uno nuevo para comenzar.</p>
+            </div>
+
+            <form id="user-form" class="hidden">
+                <input type="hidden" id="userId" name="userId">
+                
+                <div class="form-header">
+                    <img src="/IMG_3913.jpeg" alt="Logo Santo Tomás" class="logo-header logo-left">
+                    <div class="header-title">
+                        <h2>Ficha de Diagnóstico Inicial</h2>
+                        <p>Centro de Atención Infanto Juvenil</p>
+                    </div>
+                    <img src="/IMG_3834.jpeg" alt="Logo CORFAL" class="logo-header logo-right">
+                </div>
+
+                <!-- Datos de Identificación -->
+                <fieldset>
+                    <legend>1. Datos de Identificación</legend>
+                    <div class="form-row">
+                        <div class="form-group w-60">
+                            <label for="nombreCompleto">Nombre Completo</label>
+                            <input type="text" id="nombreCompleto" name="nombreCompleto" required>
+                        </div>
+                        <div class="form-group w-40">
+                            <label for="fechaNacimiento">Fecha de Nacimiento</label>
+                            <input type="date" id="fechaNacimiento" name="fechaNacimiento">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                         <div class="form-group w-20">
+                            <label for="edad">Edad</label>
+                            <input type="number" id="edad" name="edad" readonly>
+                        </div>
+                        <div class="form-group w-40">
+                            <label for="telefono">Teléfono</label>
+                            <input type="tel" id="telefono" name="telefono">
+                        </div>
+                        <div class="form-group w-40">
+                            <label for="contactoDigital">Contacto Digital (Email)</label>
+                            <input type="email" id="contactoDigital" name="contactoDigital">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="direccion">Dirección</label>
+                        <input type="text" id="direccion" name="direccion">
+                    </div>
+                </fieldset>
+
+                <!-- Motivo de Consulta -->
+                <fieldset>
+                    <legend>2. Motivo de Consulta</legend>
+                    <div class="form-group">
+                        <label for="motivoConsulta">Motivo de Consulta</label>
+                        <textarea id="motivoConsulta" name="motivoConsulta" rows="3"></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>¿Es derivación?</label>
+                            <div>
+                                <input type="radio" id="derivacionSi" name="derivacion" value="si"> <label for="derivacionSi">Sí</label>
+                                <input type="radio" id="derivacionNo" name="derivacion" value="no" checked> <label for="derivacionNo">No</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>¿Ordenado por tribunal?</label>
+                             <div>
+                                <input type="radio" id="tribunalSi" name="tribunal" value="si"> <label for="tribunalSi">Sí</label>
+                                <input type="radio" id="tribunalNo" name="tribunal" value="no" checked> <label for="tribunalNo">No</label>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label>¿Ingreso voluntario?</label>
+                             <div>
+                                <input type="radio" id="voluntarioSi" name="voluntario" value="si" checked> <label for="voluntarioSi">Sí</label>
+                                <input type="radio" id="voluntarioNo" name="voluntario" value="no"> <label for="voluntarioNo">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                
+                <!-- Área de Salud -->
+                <fieldset>
+                    <legend>3. Área de Salud</legend>
+                    <h4>Salud General y Psicosocial</h4>
+                    <div class="form-group">
+                        <label for="saludPerinatal">Antecedentes Perinatales relevantes</label>
+                        <textarea id="saludPerinatal" name="saludPerinatal" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="saludEnfermedades">Enfermedades base, problemas cognitivos o discapacidad</label>
+                        <textarea id="saludEnfermedades" name="saludEnfermedades" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="saludDiagnosticoPsiquiatrico">Diagnóstico psiquiátrico (si existe)</label>
+                        <input type="text" id="saludDiagnosticoPsiquiatrico" name="saludDiagnosticoPsiquiatrico">
+                    </div>
+                    <h4>Consumo Problemático</h4>
+                    <div class="form-row">
+                        <div class="form-group w-full">
+                            <label for="consumoSustancias">Sustancia(s) que consume</label>
+                            <input type="text" id="consumoSustancias" name="consumoSustancias">
+                        </div>
+                    </div>
+                     <div class="form-row">
+                        <div class="form-group">
+                            <label for="consumoInicio">Inicio de consumo (aprox)</label>
+                            <input type="text" id="consumoInicio" name="consumoInicio">
+                        </div>
+                        <div class="form-group">
+                            <label for="consumoFrecuencia">Frecuencia / Dosis</label>
+                            <input type="text" id="consumoFrecuencia" name="consumoFrecuencia">
+                        </div>
+                        <div class="form-group">
+                            <label for="consumoDiario">¿Consumo diario?</label>
+                             <div>
+                                <input type="radio" id="consumoDiarioSi" name="consumoDiario" value="si"> <label for="consumoDiarioSi">Sí</label>
+                                <input type="radio" id="consumoDiarioNo" name="consumoDiario" value="no" checked> <label for="consumoDiarioNo">No</label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Área Educacional -->
+                <fieldset>
+                    <legend>4. Área Educacional</legend>
+                    <div class="form-row">
+                        <div class="form-group w-half">
+                            <label for="eduCursoActual">Año escolar que cursa</label>
+                            <input type="text" id="eduCursoActual" name="eduCursoActual">
+                        </div>
+                        <div class="form-group w-half">
+                            <label for="eduUltimoCurso">Último año cursado (si aplica)</label>
+                            <input type="text" id="eduUltimoCurso" name="eduUltimoCurso">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="eduMotivoAbandono">Motivo de abandono escolar (si aplica)</label>
+                        <textarea id="eduMotivoAbandono" name="eduMotivoAbandono" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="eduApoyo">¿Ha necesitado apoyo especial (NEE)? ¿Cuál?</label>
+                        <input type="text" id="eduApoyo" name="eduApoyo">
+                    </div>
+                    <div class="form-group">
+                        <label for="eduMediacion">¿Ha participado en mediación escolar por situaciones violentas?</label>
+                        <input type="text" id="eduMediacion" name="eduMediacion">
+                    </div>
+                     <div class="form-row">
+                        <div class="form-group w-half">
+                            <label for="eduAsignaturaFavorita">Asignatura favorita</label>
+                            <input type="text" id="eduAsignaturaFavorita" name="eduAsignaturaFavorita">
+                        </div>
+                        <div class="form-group w-half">
+                            <label for="eduHabilidades">¿Para qué te consideras bueno/a?</label>
+                            <input type="text" id="eduHabilidades" name="eduHabilidades">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Área Social y Familiar -->
+                <fieldset>
+                    <legend>5. Área Social y Familiar</legend>
+                    <div class="form-row">
+                        <div class="form-group w-half">
+                            <label for="socialApoyoPadres">¿Cuenta con apoyo de sus padres?</label>
+                            <input type="text" id="socialApoyoPadres" name="socialApoyoPadres">
+                        </div>
+                        <div class="form-group w-half">
+                            <label for="socialApoyoFamilia">¿Cuenta con apoyo de otros familiares?</label>
+                            <input type="text" id="socialApoyoFamilia" name="socialApoyoFamilia">
+                        </div>
+                    </div>
+                     <div class="form-group">
+                        <label for="socialConvivencia">¿Con quién vivió el último año? ¿Dónde?</label>
+                        <input type="text" id="socialConvivencia" name="socialConvivencia">
+                    </div>
+                    <div class="form-group">
+                        <label for="socialComportamiento">Conducta social (aislamiento, disruptivo, sociable)</label>
+                        <input type="text" id="socialComportamiento" name="socialComportamiento">
+                    </div>
+                    <div class="form-group">
+                        <label for="socialPrograma">¿Participa en algún programa social del Estado? ¿Hogar de menores?</label>
+                        <input type="text" id="socialPrograma" name="socialPrograma">
+                    </div>
+                     <div class="form-row">
+                         <div class="form-group w-half">
+                            <label for="socialTrabajo">¿Tiene algún trabajo/ingreso actualmente?</label>
+                            <input type="text" id="socialTrabajo" name="socialTrabajo">
+                        </div>
+                        <div class="form-group w-half">
+                            <label for="socialOcupacion">Última ocupación (si aplica)</label>
+                            <input type="text" id="socialOcupacion" name="socialOcupacion">
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Otros Datos -->
+                <fieldset>
+                    <legend>6. Información Adicional Relevante</legend>
+                    <div class="form-group">
+                        <label for="infoPreocupaciones">¿Qué es lo que más te preocupa o qué te gustaría cambiar?</label>
+                        <textarea id="infoPreocupaciones" name="infoPreocupaciones" rows="3"></textarea>
+                    </div>
+                     <div class="form-group">
+                        <label for="infoOtros">Otros datos o información relevante</label>
+                        <textarea id="infoOtros" name="infoOtros" rows="3"></textarea>
+                    </div>
+                </fieldset>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    <button type="button" id="print-btn" class="btn">Imprimir / Guardar PDF</button>
+                    <button type="button" id="delete-btn" class="btn btn-danger">Eliminar Ficha</button>
+                </div>
+            </form>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
